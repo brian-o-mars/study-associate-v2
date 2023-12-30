@@ -1,5 +1,5 @@
 import Image from "next/image";
-
+import logo from "./logologo.png";
 import Link from "next/link";
 
 function Footer() {
@@ -7,13 +7,13 @@ function Footer() {
     <footer className=" inset-x-0 bottom-0 flex flex-col ">
       <div className="flex flex-col md:flex-row space-x-5 mx-3 mt-3 p-2 items-center justify-between ">
         <Link href="/">
-          {/* <Image
+          <Image
             src={logo}
             alt="Study Associate Logo"
             width={300}
             height={100}
             className="w-full md:w-56 items-center"
-          /> */}
+          />
         </Link>
 
         <div className="w-full md:w-1/2 text-[#202942] font-medium text-md md:text-[17px] text-center ">

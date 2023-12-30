@@ -3,17 +3,19 @@ import { Inbox } from "lucide-react";
 import React from "react";
 import { useDropzone } from "react-dropzone";
 import toast from "react-hot-toast";
-import { Client, ID, Storage } from "appwrite";
+import { ID, Storage } from "appwrite";
+import { useRouter } from 'next/navigation';
+import { appWriteclient } from "@/lib/AppwriteClient";
+import { v4 } from "uuid";
+
+// export const guestPdfId = ID.unique();
+ export const guestPdfId = v4();
 
 function Hero() {
   const [uploading, setUploading] = React.useState(false);
+  const router = useRouter()
 
-  // initializing appwrite client and storage
-  const client = new Client()
-    .setEndpoint("https://cloud.appwrite.io/v1")
-    .setProject(process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID!);
-
-  const storage = new Storage(client);
+  const storage = new Storage(appWriteclient());
 
   const { getRootProps, getInputProps } = useDropzone({
     accept: { "application/pdf": [".pdf"] },
@@ -29,18 +31,23 @@ function Hero() {
         return;
       }
 
+      
+
       try {
         setUploading(true);
         if (uploading) {
           toast.loading("Uploading...");
         }
+        
         await storage.createFile(
           process.env.NEXT_PUBLIC_APPWRITE_BUCKET_ID!,
-          ID.unique(),
+          guestPdfId,
           file
         );
 
+        
         console.log("uploaded to appwrite");
+        router.push('/guest')
       } catch (error) {
         toast.error("Upload failed!");
         console.log(error);
@@ -76,3 +83,7 @@ function Hero() {
 }
 
 export default Hero;
+function uuidv4() {
+  throw new Error("Function not implemented.");
+}
+
