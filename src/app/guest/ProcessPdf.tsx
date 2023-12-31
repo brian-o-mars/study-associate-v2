@@ -2,6 +2,7 @@
 import React, { useEffect } from "react";
 import { WebPDFLoader } from "langchain/document_loaders/web/pdf";
 import { guestPdfId } from "@/components/Hero";
+import { Document } from "react-pdf";
 
 
 
@@ -10,6 +11,11 @@ const fileId = guestPdfId;
 const projectId = process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID!;
 
 const pdfUrl = `https://cloud.appwrite.io/v1/storage/buckets/${bucketId}/files/${fileId}/view?project=${projectId}&mode=admin`;
+const pdf = <Document file={pdfUrl} />;
+
+
+// const pdf = <Document file={pdfUrl} />;
+// console.log(pdf);
 
 // async function downloadPdf(url: string) {
 //   const response = await fetch(url);
@@ -47,14 +53,18 @@ async function downloadPDF(url: string) {
 
 export async function getPdfContent() {
   const pdfContent = await downloadPDF(pdfUrl);
+  // console.log(pdf);
   return pdfContent;
 }
 
+// const doclen = docs.length()
 const ProcessPdf = () => {
 //   useEffect(() => {
 //     getPdfContent();
 //   }, []);
-  return <div></div>;
+  return <div>
+    {/* <button onClick={doclen}>Show PDF</button> */}
+  </div>;
 };
 
 export default ProcessPdf;
