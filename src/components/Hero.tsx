@@ -7,6 +7,8 @@ import { ID, Storage } from "appwrite";
 import { useRouter } from 'next/navigation';
 import { appWriteclient } from "@/lib/AppwriteClient";
 import { v4 } from "uuid";
+import { execSync } from 'child_process';
+import { embedDocs } from "@/scripts/pineconeEmbedDocs";
 
 // export const guestPdfId = ID.unique();
  export const guestPdfId = v4();
@@ -47,7 +49,9 @@ function Hero() {
 
         
         console.log("uploaded to appwrite");
+        
         router.push('/guest')
+        
       } catch (error) {
         toast.error("Upload failed!");
         console.log(error);
