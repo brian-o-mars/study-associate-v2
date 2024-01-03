@@ -1,6 +1,6 @@
-import { getChunkedDocsFromPDF } from "@/lib/pdf-loader";
+import { getChunkedDocsFromPDF, getChunkedDocsFromPDFUser } from "@/lib/pdf-loader";
 import { getPineconeClient } from "@/lib/pinecone-client";
-import { embedAndStoreDocs } from "@/lib/vector-store";
+import { embedAndStoreDocs, embedAndStoreDocsUser } from "@/lib/vector-store";
 import { Pinecone } from "@pinecone-database/pinecone";
 
 const pineconeClient = new Pinecone({
@@ -37,3 +37,17 @@ export async function embedDocs() {
       console.error("Init client script failed ", error);
     }
   }
+
+//User section
+export async function embedDocsUser() {
+  try {
+    const pineconeClient = await getPineconeClient();
+    console.log("Preparing chunks from PDF file");
+    const docs = await getChunkedDocsFromPDFUser();
+    console.log(`Loading ${docs.length} chunks into pinecone...`);
+    await embedAndStoreDocsUser(pineconeClient, docs);
+    console.log("Data embedded and stored in pine-cone index");
+  } catch (error) {
+    console.error("Init client script failed ", error);
+  }
+}

@@ -4,18 +4,18 @@ import React from "react";
 import { useDropzone } from "react-dropzone";
 import toast from "react-hot-toast";
 import { ID, Storage } from "appwrite";
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 import { appWriteclient } from "@/lib/AppwriteClient";
 import { v4 } from "uuid";
-import { execSync } from 'child_process';
+import { execSync } from "child_process";
 import { embedDocs } from "@/scripts/pineconeEmbedDocs";
 
 // export const guestPdfId = ID.unique();
- export const guestPdfId = v4();
+export const guestPdfId = v4();
 
 function Hero() {
   const [uploading, setUploading] = React.useState(false);
-  const router = useRouter()
+  const router = useRouter();
 
   const storage = new Storage(appWriteclient());
 
@@ -33,25 +33,21 @@ function Hero() {
         return;
       }
 
-      
-
       try {
         setUploading(true);
         if (uploading) {
           toast.loading("Uploading...");
         }
-        
+
         await storage.createFile(
           process.env.NEXT_PUBLIC_APPWRITE_BUCKET_ID!,
           guestPdfId,
           file
         );
 
-        
         console.log("uploaded to appwrite");
-        
-        router.push('/guest')
-        
+
+        router.push("/guest");
       } catch (error) {
         toast.error("Upload failed!");
         console.log(error);
@@ -90,4 +86,3 @@ export default Hero;
 function uuidv4() {
   throw new Error("Function not implemented.");
 }
-
