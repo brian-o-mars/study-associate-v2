@@ -12,6 +12,7 @@ export function Chat() {
   //   { role: "assistant", content: "Hello, how can I help you today?", id: "1" },
   //   { role: "user", content: "I need help with my account", id: "2" },
   // ];
+  //
   // const sources = ["I'm source one", "I'm source two"];
   const { messages, input, handleInputChange, handleSubmit, isLoading } = useChat({
     initialMessages,
