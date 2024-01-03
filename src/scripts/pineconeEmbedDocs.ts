@@ -41,7 +41,7 @@ export async function embedDocs() {
 //User section
 export async function embedDocsUser() {
   try {
-    const pineconeClient = await getPineconeClient();
+    // const pineconeClient = await getPineconeClient();
     console.log("Preparing chunks from PDF file");
     const docs = await getChunkedDocsFromPDFUser();
     console.log(`Loading ${docs.length} chunks into pinecone...`);

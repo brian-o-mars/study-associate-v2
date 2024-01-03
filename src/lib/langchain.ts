@@ -15,17 +15,17 @@ type callChainArgs = {
   chatHistory: string;
 };
 
-// const pineconeClient = new Pinecone({
-//     apiKey: process.env.NEXT_PUBLIC_PINECONE_API_KEY!,
-//     environment: process.env.NEXT_PUBLIC_PINECONE_ENVIRONMENT!,
-//   });
+const pineconeClient = new Pinecone({
+    apiKey: process.env.NEXT_PUBLIC_PINECONE_API_KEY!,
+    environment: process.env.NEXT_PUBLIC_PINECONE_ENVIRONMENT!,
+  });
 
 export async function callChain({ question, chatHistory }: callChainArgs) {
     try {
       console.log("Starting callChain");
       // Open AI recommendation
       const sanitizedQuestion = question.trim().replaceAll("\n", " ");
-      const pineconeClient = await getPineconeClient();
+      // const pineconeClient = await getPineconeClient();
       const vectorStore = await getVectorStore(pineconeClient);
       const { stream, handlers } = LangChainStream();
       
